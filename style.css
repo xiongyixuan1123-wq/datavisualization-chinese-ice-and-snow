@@ -477,33 +477,37 @@ p {
     box-shadow: none;
     margin-bottom: 50px;
 }
-/* 针对手机端（屏幕宽度小于 768px）的专项优化 */
+/* 针对手机端的精准调整 - 严禁缩小文字版 */
 @media (max-width: 768px) {
-    /* 1. 核心：取消 110px 或 120px 的固定高度，让它自动撑开 */
+    /* 1. 彻底取消高度限制，让背景板根据文字大小自动撑开 */
     .hero-fixed {
-        height: auto !important;      /* 允许高度根据文字行数自动伸缩 */
-        min-height: 90px;             /* 保证最少也有这么高 */
-        padding: 20px 10px;           /* 增加上下内边距，让两行文字有呼吸感 */
-        flex-direction: column;       /* 确保标题和作者是上下排列 */
+        height: auto !important;      /* 严禁固定高度 */
+        min-height: 100px;
+        padding: 25px 15px;           /* 增加内边距，给大字留出呼吸感 */
+        flex-direction: column;       /* 标题和作者上下排布 */
     }
 
-    /* 2. 标题文字：保持大小，但允许它换行 */
+    /* 2. 标题文字：保持原有大小，强制换行 */
     .main-title {
-        font-size: 1.5rem !important; /* 维持你要求的大字号 */
-        line-height: 1.3;             /* 稍微调紧行间距，防止换行后太散 */
+        font-size: 1.6rem !important; /* 强制维持大字号，如果原电脑端更大，请按需调大 */
+        line-height: 1.4;             /* 增加行高，防止多行文字重叠 */
         text-align: center;
-        width: 90%;                   /* 防止文字太靠边 */
+        white-space: normal;          /* 允许换行 */
+        width: 100%;
+        display: block;
     }
 
-    /* 3. 作者名字：保持大小 */
+    /* 3. 作者名字：保持原有大小 */
     .author-name {
-        font-size: 0.9rem !important;
-        margin-top: 8px;              /* 与标题拉开一点点距离 */
+        font-size: 0.95rem !important; 
+        margin-top: 10px;             /* 加大与标题的间距 */
+        display: block;
     }
 
-    /* 4. 重点：正文补偿 */
-    /* 因为 header 变高了，如果不推开正文，正文前几个字会被标题挡住 */
+    /* 4. 关键：正文必须大幅度向下移动 */
+    /* 因为标题不缩小且换行后，整个吸顶栏会变得非常厚 */
+    /* 如果这里不调大，正文开头会被标题遮住 */
     main.container {
-        margin-top: 200px !important; /* 如果手机上看标题还是挡住了正文，就把这个数字再调大 */
+        margin-top: 240px !important; /* 这个数值是根据你的标题字号推算的 */
     }
 }
